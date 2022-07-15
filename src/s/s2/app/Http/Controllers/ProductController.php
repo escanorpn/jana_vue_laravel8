@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Image;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -83,6 +85,50 @@ class ProductController extends Controller
     {
         //
     }
+    public function addProduct2(Request $request) {
+        $imagesName = [];
+        $response = [];
+
+        $validator = Validator::make($request->all(),
+            [
+                'images' => 'required',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]
+        );
+
+        if($validator->fails()) {
+            return response()->json(["status" => "failed", "message" => "Validation error", "errors" => $validator->errors()]);
+        }
+        $product = new Product;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->save();
+        if ($file1 = $request->file('images')) {
+            foreach($file1 as $file){
+
+            $path = $file->store('public/files/'.date("Y-m-d"));
+            $name = time().rand(0,3).'.'.$file->getClientOriginalName();
+  
+            //store your file into directory and db
+            $save = new Image();
+            $save->product_id =  $product->id;
+            $save->url= $path;
+            $save->save();
+            }
+        
+               
+            return response()->json([
+                "success" => true,
+                "message" => "File successfully uploaded",
+                // "file" => $file
+            ]);
+   
+        } else {
+            $response["status"] = "failed";
+            $response["message"] = "Failed! image(s) not uploaded";
+        }
+        return response()->json($response);
+    }
 
     public function addProduct(Request $request)
         {
@@ -94,13 +140,37 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->save();
-        // foreach ($request->file('images') as $imagefile) {
-        //     $image = new Image;
-        //     $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
-        //     $image->url = $path;
-        //     $image->product_id = $product->id;
-        //     $image->save();
-        // }
+        $mImage= $request->images;
+        if($mImage){
+            return response()->json([
+                'message' => 'No images ',
+                'Product' => json_encode($mImage)
+            ], 201);
+        }else{
+            // for($count=0; $count<count(mImage["name"]); $count++)
+            // {
+            //     return response()->json([
+            //         'message' => ' images ',
+            //         'images' =>  mImage["name"][$count]
+            //     ], 201);
+               
+            // }
+           
+        }
+        
+  
+        foreach ($mImage as $imagefile) {
+            $image = new Image;
+            
+            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
+            // $image->url = $path;
+            // $image->product_id = $product->id;
+            // $image->save();
+            return response()->json([
+                'message' => 'Product registered',
+                'Product' => $path
+            ], 201);
+        }
         return response()->json([
             'message' => 'Product registered',
             'Product' => $product

@@ -30,7 +30,8 @@ Route::group(['middleware' => ['jwt.verify'],
     
     Route::post('/product', [ProductController::class, 'addProduct']); 
 });
-
+Route::post('/product1', [ProductController::class, 'addProduct']); 
+Route::post('/product2', [ProductController::class, 'addProduct2']); 
 // Route::get('/', function () {
 //     return view('welcome');
 // });

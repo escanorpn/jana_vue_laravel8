@@ -96,19 +96,22 @@ const Dcrypt = cr.VueNaclCrypter
        form_data.append('email',this.email);
        form_data.append('pass',this.pass);
       console.log(this.pass);
- const article = { 
-    email:this.email ,
-    pass:this.pass
- };
-      
+//  const article = { 
+//     email:this.email ,
+//     password:this.pass
+//  };
+ const article ={
+  "email": "vector.n@gmail.com",
+  "password": "passpass"
+ }
+      console.log(article)
 var murl=this.$store.state.mUrl;
 // alert(murl);
         axios({
           method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=admin_l',
+          url: murl+'login?api_token=',
           data: article,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
+          config: { headers: {'Content-Type': 'application/json' }}
       })
       .then((response) => {
         console.log("response: "+response);

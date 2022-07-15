@@ -529,22 +529,25 @@ const axios = require('axios');
         var murl=this.$store.state.mUrl;
         var form_data = new FormData();
 
-      form_data.append('heading',this.heading);
-      form_data.append('desc',this.desc);
+      form_data.append('name',this.heading);
+      form_data.append('description',this.desc);
+      // form_data.append('images[]',this.sImages);
       for( var i = 0; i < this.sImages.length; i++ ){
           let file = this.sImages[i];
           console.log(file);
-          form_data.append('files[' + i + ']', file);
+          form_data.append('images[]', file);
         }
        for (var pair of form_data.entries()) {
     console.log(pair[0]+ ' - ' + pair[1]); 
 }
+console.log(murl)
+console.log(JSON.stringify(form_data))
       axios({
           method: 'POST',
           // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=a_up1',
+          url: 'http://localhost/w/vue/src/s/s2/public/api/product2',
           data: form_data,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
+          config: { headers: {'Content-Type': 'application/json' }}
       })
       .then((response) => {
         console.log("response: "+response);
@@ -565,7 +568,7 @@ const axios = require('axios');
       });
         // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
-         this.clearForm1();
+        //  this.clearForm1();
           this.sending = false
           
         }, 1500)
@@ -573,7 +576,7 @@ const axios = require('axios');
       },
 saveGallery(){
         this.sending = true
-        var murl=this.$store.state.mUrl;
+        var murl=this.$store.state.nUrl;
         var form_data = new FormData();
 
       form_data.append('heading',"Gallery");

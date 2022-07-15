@@ -16,7 +16,10 @@ export default new Vuex.Store({
     mKey: "mKey1mKey1mKey1mKey1mKey1mKey1m1",
     // mUrl: "http://localhost/w/15/vue_mdb_ant/src/s/s1/",
     // mUrl: "http://localhost/w/lmg2/src/s/s1/",
-    mUrl: "https://lmg.lmglobalexhibitions.com/src/s/s1/",
+    // http://localhost/w/vue/src/s/s2/public/api/product1
+    mUrl: " http://localhost/w/vue/src/s/s2/public/api/auth/",
+    nUrl: " http://localhost/w/vue/src/s/s2/public/api/",
+    // mUrl: "https://lmg.lmglobalexhibitions.com/src/s/s1/",
     // mUrl: "http://192.168.43.73/w/15/vue_mdb_ant/src/s/s1/",
     // mUrl: "http://s15minutes.kilaqitu.com/s1/",
     // mUrl: "https://s15.15minuteslogistics.co/s1/",
