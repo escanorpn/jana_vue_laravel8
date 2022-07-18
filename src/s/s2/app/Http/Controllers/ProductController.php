@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -18,6 +19,13 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = ProductResource::collection(Product::all());
+        return response()->json([
+        "success" => true,
+        "message" => "Product List",
+        "val" => "2",
+        "data" => $products
+        ]);
     }
 
     /**
@@ -81,9 +89,16 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        $products = ProductResource::collection(Product::all());
+        return response()->json([
+        "success" => true,
+        "message" => "Product List",
+        "val" => "2",
+        "data" => $products
+        ]);
     }
     public function addProduct2(Request $request) {
         $imagesName = [];

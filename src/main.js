@@ -19,7 +19,7 @@ import 'ant-design-vue/dist/antd.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
-
+import api from "./views/services/api";
 
 import VueCookies from 'vue-cookies'
 import * as cr from 'vue-nacl-crypter' 
@@ -41,3 +41,66 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+
+Vue.config.productionTip = false;
+Vue.prototype.$http = api; 
+// Vue.use(api);
+api.defaults.timeout = 10000;
+api.interceptors.request.use(
+  config => {
+    // const token = localStorage.getItem("access_token");
+    const token = this.$store.state.access_token;
+    if (token) {
+      config.headers.common["Authorization"] ="Bearer "+ token;
+      
+    }
+    // config.headers.common["Bearer Token"] = "dddd";
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+api.interceptors.response.use(
+  response => {
+    if (response.status === 200 || response.status === 201) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
+  },
+error => {
+    if (error.response.status) {
+      switch (error.response.status) {
+        case 400:
+         
+         //do something
+          break;
+      
+        case 401:
+          alert("session expired");
+          break;
+        case 403:
+          router.replace({
+            path: "/admin",
+            query: { redirect: router.currentRoute.fullPath }
+          });
+           break;
+        case 404:
+          alert('page not exist');
+          break;
+        case 502:
+         setTimeout(() => {
+            router.replace({
+              path: "/admin",
+              query: {
+                redirect: router.currentRoute.fullPath
+              }
+            });
+          }, 1000);
+      }
+      return Promise.reject(error.response);
+    }
+  }
+);

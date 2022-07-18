@@ -9,6 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     docs: true,
+    apikey: "jj",
+    access_token:"one",
     mcolor: "#45100f",
     button_c:"#e9ecef",
     button_bg: "linear-gradient(315deg,#3f0d12,#a71d31 74%)",
@@ -18,6 +20,7 @@ export default new Vuex.Store({
     // mUrl: "http://localhost/w/lmg2/src/s/s1/",
     // http://localhost/w/vue/src/s/s2/public/api/product1
     mUrl: " http://localhost/w/vue/src/s/s2/public/api/auth/",
+    iUrl: " http://localhost/w/vue/src/s/s2/storage/app/",
     nUrl: " http://localhost/w/vue/src/s/s2/public/api/",
     // mUrl: "https://lmg.lmglobalexhibitions.com/src/s/s1/",
     // mUrl: "http://192.168.43.73/w/15/vue_mdb_ant/src/s/s1/",
@@ -28,6 +31,9 @@ export default new Vuex.Store({
     mutations: {
         toggleDocs(state, value) {
             state.docs = value;
+        },
+        setApikey(state,value){
+            state.access_token=value
         }
     },
     actions: {

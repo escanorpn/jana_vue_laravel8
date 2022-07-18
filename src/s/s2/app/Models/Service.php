@@ -1,21 +1,19 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Service extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'services';
     protected $fillable = [
-        'name', 'discription'
+        'name', 'discription',
     ];
-    
-   
     public function images()
     {
-        return $this->hasMany('App\Models\Image','Product_id','id');
+        return $this->hasMany('App\Models\Image');
     }
 }

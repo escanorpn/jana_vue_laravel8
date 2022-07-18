@@ -47,10 +47,11 @@
 </template>
 <script>
   import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from 'mdbvue';
-  const axios = require('axios');
-  import * as cr from 'vue-nacl-crypter' 
+  import api from "../services/api";
+  // const axios = require('axios');
+  // import * as cr from 'vue-nacl-crypter' 
  
-const Dcrypt = cr.VueNaclCrypter
+// const Dcrypt = cr.VueNaclCrypter
 
   function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -73,7 +74,7 @@ const Dcrypt = cr.VueNaclCrypter
     };
   },
   mounted() {
-    
+       
     this.$nextTick(() => {
       // To disabled submit button at the beginning.
       this.form.validateFields();
@@ -96,50 +97,68 @@ const Dcrypt = cr.VueNaclCrypter
        form_data.append('email',this.email);
        form_data.append('pass',this.pass);
       console.log(this.pass);
-//  const article = { 
+//  const data = { 
 //     email:this.email ,
 //     password:this.pass
 //  };
- const article ={
+ const data ={
   "email": "vector.n@gmail.com",
   "password": "passpass"
  }
-      console.log(article)
-var murl=this.$store.state.mUrl;
+      // console.log(article)
+// var murl=this.$store.state.mUrl;
 // alert(murl);
-        axios({
-          method: 'POST',
-          url: murl+'login?api_token=',
-          data: article,
-          config: { headers: {'Content-Type': 'application/json' }}
-      })
-      .then((response) => {
-        console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
-        // console.log("response2: "+response.data);
-        if(response.data.val==22 & !response.data.error){
-          
-          var key=this.$store.state.mKey;
-          console.log(key)
-          // var cName = this.$Dcrypt.encrypt("response.data.name",  "key");
-          var cId = Dcrypt.encrypt(key,null,  key);
-          
-          var cName=response.data.name;
-          // var cId=response.data.id
-          this.$cookies.set("admin",cName,"22min");
-          this.$cookies.set("id",cId,"22min");
-          this.$router.push('/Products');
-          
+api.post('login',data).then((response) => {
+   console.log("response: "+ JSON.stringify(response));
+   let access_token=response.data.token.original.access_token;
+   if(response.data.val==22 & !response.data.error){
+    this.$store.commit('setApikey',access_token)
+     localStorage.setItem('access_token', access_token)
+    console.log("response1: "+ JSON.stringify(access_token));
+    console.log("response2: "+ this.$store.state.access_token);
+    
 
-          // this.$cookies.remove("id" ) 
-        }
-
-
-      })
-      .catch(function (response) {
+    this.$router.push('/Products');
+    window.location.reload();
+   }
+}).catch(function (response) {
           //handle error
           console.log("error"+response)
       });
+
+      //   axios({
+      //     method: 'POST',
+      //     url: murl+'login?api_token=',
+      //     data: data,
+      //     config: { headers: {'Content-Type': 'application/json' }}
+      // })
+      // .then((response) => {
+      //   console.log("response: "+response);
+      //   console.log("response1: "+ JSON.stringify(response.data));
+      //   // console.log("response2: "+response.data);
+      //   if(response.data.val==22 & !response.data.error){
+          
+      //     var key=this.$store.state.mKey;
+      //     console.log(key)
+      //     // var cName = this.$Dcrypt.encrypt("response.data.name",  "key");
+      //     var cId = Dcrypt.encrypt(key,null,  key);
+          
+      //     var cName=response.data.name;
+      //     // var cId=response.data.id
+      //     this.$cookies.set("admin",cName,"22min");
+      //     this.$cookies.set("id",cId,"22min");
+      //     this.$router.push('/Products');
+          
+
+      //     // this.$cookies.remove("id" ) 
+      //   }
+
+
+      // })
+      // .catch(function (response) {
+      //     //handle error
+      //     console.log("error"+response)
+      // });
 
     },
     hEmail (val) {

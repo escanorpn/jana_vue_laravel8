@@ -1,7 +1,6 @@
 <template>
 <div  class="mb-5 col-md-4" >
 
- <div  v-for="(item,index) in sm1" :key="index"  >
  
      <mdb-card v-animateOnScroll="{animation: 'fadeInLeft', delay: 30}" wide >
       
@@ -19,7 +18,7 @@
             </div> -->
           
      
-              <img  :src="murl+item.url" alt="Card image cap" class="ms1"/>
+              <img  :src="murl+sm1.url" alt="Card image cap" class="ms1"/>
                 <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
            
       </mdb-view>
@@ -32,7 +31,7 @@
 					
 		</mdb-card-body>
 
-       <div class="float-center" style="margin-left: auto;margin-right: auto;" @click="reload(item.gid)"><mdb-btn  color="danger" rounded>Delete </mdb-btn></div>
+       <div class="float-center" style="margin-left: auto;margin-right: auto;" @click="reload(sm1.id)"><mdb-btn  color="danger" rounded>Delete </mdb-btn></div>
 
        
       <!-- <div class="float-center" style="margin-left: auto;margin-right: auto;" >
@@ -42,15 +41,14 @@
       </div> -->
   
 	</mdb-card>
-  </div>
+
         </div>
 </template>
 
 <script>
 import {   mdbCard, mdbCardBody,animateOnScroll, mdbBtn} from 'mdbvue';
       
-// import { slider, slideritem } from 'vue-concise-slider'
- const axios = require('axios');
+import api from "../../services/api";
 export default {
    name: 'HomePage',
   components: {
@@ -77,7 +75,7 @@ export default {
     isBold: false,
     
     id:0,
-     murl:this.$store.state.mUrl,
+     murl:this.$store.state.iUrl,
      sm1:[],
     someList:[
           {
@@ -135,41 +133,29 @@ this.post.price= formatter.format(2500);
    
    this.id=mid;
  
-    const article = { 
-    id:this.id,
-  };
-      console.log("item_reload"+this.id);
-var murl=this.$store.state.mUrl;
-   axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=del_m3',
-          data: article,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-        // console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
-        // console.log("response2: "+response.data);
-          if(response.data.val==22 & !response.data.error){
+api.delete('company/'+this.id).then((response) => {
+      console.log("response: "+ JSON.stringify(response));
+      const myData = response.data
+        
+ if(response.data.val==2 ){
             this.$parent.reload();
               console.log("item_deleted"+this.id);
           }
         this.$parent.done();
-      })
-      .catch(function (response) {
+        console.log("products"+JSON.stringify(myData))
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+response.response.status)
       });
        
-
     }
   },
   mounted() {
     // this.fetchNews()
-    this.currency();
-    this.sm1=this.post.im;
-    console.log("im: "+JSON.stringify(this.post.im))
+    // this.currency();
+    this.sm1=this.post;
+    console.log("im: "+JSON.stringify(this.post))
   },
 }
 </script>

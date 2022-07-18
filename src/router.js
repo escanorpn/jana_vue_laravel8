@@ -18,7 +18,20 @@ import Portfolio from './views/portfolio/folio.vue'
 
 
 Vue.use(Router)
-
+const isLoggedIn=(to,from,next)=>{
+  
+  if(localStorage.getItem('access_token')){
+    console.log("Logged in")
+    next()
+  }else{
+    // return false
+    // next()
+    return '/login'
+    // return { name: '/admin' }
+    // from();
+  }
+  
+}
 export default new Router({
   routes: [
     
@@ -40,7 +53,8 @@ export default new Router({
     {
       path: '/products',
       name: 'Products',
-      component: Products
+      component: Products,
+      beforeEnter:isLoggedIn
     },
     {
       path: '/cart',

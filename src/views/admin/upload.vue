@@ -9,88 +9,75 @@
       arrows maxHeight="400px" v-model="data" /> -->
         <div>
     <a-tabs default-active-key="1" @change="callback">
-      <!-- <a-tab-pane key="2" tab="Products">
-      <form novalidate style="
-    margin-left: auto;margin-right: auto;z-index:0;justify-content: space-around;" class="md-layout" @submit.prevent="validateUser1">
+    
+  <a-tab-pane key="4" tab="Project" force-render>
+    <form novalidate style="
+    margin-left: auto;
+    margin-right: auto;z-index:0;
+    justify-content: space-around;" class="md-layout" @submit.prevent="validateProject">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
-          <div class="md-title">Products</div>
-        </md-card-header>
+          <div class="md-title">Project</div>
+          </md-card-header>
 
         <md-card-content>
-          <div class="md-layout md-gutter">
-              <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('gender')">
-                <label for="gender">Category</label>
-                <md-select name="gender" id="gender" v-model="form.gender" md-dense :disabled="sending">
-                  <md-option></md-option>
-                  <md-option value="Motocycle">Motocycle</md-option>
-                  <md-option value="Spareparts">Spareparts</md-option>
-                </md-select>
-                <span class="md-error">Product type is required</span>
-              </md-field>
-            </div>
-
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('firstName')">
-                <label for="first-name">Name</label>
-                <md-input name="first-name" id="first-name" autocomplete="given-name" v-model="form.firstName" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.firstName.required">The first name is required</span>
-                <span class="md-error" v-else-if="!$v.form.firstName.minlength">Invalid name</span>
-              </md-field>
-            </div>
-
+     
+        <div class="md-layout md-gutter">
+          <div class="md-layout-item md-small-size-100">
+            
+              <mdb-input
+                type="textarea"
+                outline
+                inputClass="z-depth-1 p-3"
+                label="Description"  :rows="3"
+                :disabled="sending"
+                v-model="desc4"
+              />
+              
+             
           </div>
-          <div class="md-layout md-gutter">
+        </div>
+            <div class="md-layout md-gutter">
+      
             <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('lastName')">
-                <label for="last-name">Description</label>
-                <md-input name="last-name" id="last-name" autocomplete="family-name" v-model="form.lastName" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.lastName.required">The last name is required</span>
-                <span class="md-error" v-else-if="!$v.form.lastName.minlength">Invalid last name</span>
-              </md-field>
-            </div>
-            <div class="md-layout-item md-small-size-100">
-              <md-field :class="getValidationClass('age')">
-                <label for="age">Price</label>
-                <md-input type="number" id="age" name="age" autocomplete="age" v-model="form.age" :disabled="sending" />
-                <span class="md-error" v-if="!$v.form.age.required">The Price is required</span>
-                <span class="md-error" v-else-if="!$v.form.age.maxlength">Invalid Price</span>
-              </md-field>
+              <mdb-input type="text" label="Duration" outline :disabled="sending" 
+              v-model="heading4" name="Duration" />
+
             </div>
           </div>
-
-          <md-field :class="getValidationClass('email')">
-            <label for="email">Email</label>
-            
-            <UploadImages  @changed="handleImages"/>
-            
-            <span class="md-error" v-if="!$v.form.email.required">An Image is required</span>
-            <span class="md-error" v-else-if="!$v.form.email.email">Invalid email</span>
-          </md-field>
+          
+  
         </md-card-content>
           <div class="text-center py-4 mt-3">
           <mdb-btn style="color:#e9ecef;background-color:#0c0f24;" color="" type="submit" :disabled="sending">Add</mdb-btn>
         </div>
 
       </md-card>
-
-      <md-snackbar :md-active.sync="userSaved">The Product {{ lastUser }} was saved with success!</md-snackbar>
+        <md-snackbar :md-active.sync="error4">{{ emsg4 }} </md-snackbar>
+      </form>
+      </a-tab-pane>
      
-    </form>
-      </a-tab-pane> -->
-  <a-tab-pane key="3" tab="Portfolio" force-render>
+  <a-tab-pane key="3" tab="Service" force-render>
     <form novalidate style="
     margin-left: auto;
     margin-right: auto;z-index:0;
-    justify-content: space-around;" class="md-layout" @submit.prevent="validatePortfolio">
+    justify-content: space-around;" class="md-layout" @submit.prevent="validateService">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
-          <div class="md-title">Portfolio</div>
+          <div class="md-title">Service</div>
           </md-card-header>
 
         <md-card-content>
-     
+         <div class="md-layout md-gutter">
+      
+            <div class="md-layout-item md-small-size-100">
+              <mdb-input type="text" label="Heading" outline :disabled="sending" 
+              v-model="heading1" name="heading" />
+
+            </div>
+
+       
+          </div>
         <div class="md-layout md-gutter">
           <div class="md-layout-item md-small-size-100">
             
@@ -126,14 +113,14 @@
       </form>
       </a-tab-pane>
 
-       <a-tab-pane key="2" tab="services" force-render>
+       <a-tab-pane key="2" tab="Products" force-render>
         <form novalidate style="
     margin-left: auto;
     margin-right: auto;z-index:0;
-    justify-content: space-around;" class="md-layout" @submit.prevent="validateForm">
+    justify-content: space-around;" class="md-layout" @submit.prevent="validateProduct">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
-          <div class="md-title">Services</div>
+          <div class="md-title">Products</div>
         </md-card-header>
 
         <md-card-content>
@@ -192,14 +179,14 @@
       </a-tab-pane>
 
       
-       <a-tab-pane key="1" tab="Gallery" force-render>
+       <a-tab-pane key="1" tab="Companies" force-render>
         <form novalidate style="
     margin-left: auto;
     margin-right: auto;z-index:0;
     justify-content: space-around;" class="md-layout" @submit.prevent="validateGallery">
       <md-card class="md-layout-item md-size-50 md-small-size-100">
         <md-card-header>
-          <div class="md-title">Gallery</div>
+          <div class="md-title">Companies We have worked with</div>
         </md-card-header>
 
         <md-card-content>
@@ -253,8 +240,9 @@
     minLength,
     maxLength
   } from 'vuelidate/lib/validators'
+  import api from "../services/api";
 
-const axios = require('axios');
+// const axios = require('axios');
   export default {
       components: {
         UploadImages,
@@ -271,8 +259,11 @@ const axios = require('axios');
       top: 50,
         collapsed: true,
        heading: null,
+       heading1: null,
+       heading4: null,
        desc: null,
        desc1: null,
+       desc4: null,
       form: {
         firstName: null,
         lastName: null,
@@ -291,6 +282,7 @@ const axios = require('axios');
       emsg:null,
       emsg1:null,
       emsg3:null,
+      emsg4:null,
       sending: false,
       lastUser: null
     }),
@@ -304,6 +296,14 @@ const axios = require('axios');
         //   required,
         //   minLength: minLength(3)
         // },
+         heading1: {
+          required,
+          minLength: minLength(3)
+        },
+         heading4: {
+          required,
+          minLength: minLength(3)
+        },
         lastName: {
           required,
           minLength: minLength(3)
@@ -333,6 +333,10 @@ const axios = require('axios');
         desc1: {
           required,
           // sImages
+        },
+        desc4: {
+          required,
+          // sImages
         }
       }
     },
@@ -340,7 +344,7 @@ const axios = require('axios');
   
       if(!this.$cookies.isKey("admin")){
     
-        this.$router.push('/Admin');
+        // this.$router.push('/Admin');
       }
 
   },
@@ -422,99 +426,38 @@ const axios = require('axios');
         this.sImages = null
       },
       clearForm2 () {
-        // this.heading = null
+        this.heading1 = null
         this.desc1 = null
         this.pImages = null
       },
 
-      saveUser () {
-        // alert("foo");
+      saveProject (){
         this.sending = true
-        var murl=this.$store.state.mUrl;
+        // var murl=this.$store.state.mUrl;
         var form_data = new FormData();
 
-      // form_data.append("file[]", this.files);
-     
-      for( var i = 0; i < this.files.length; i++ ){
-      let file = this.files[i];
-      console.log(file);
-      form_data.append('files[' + i + ']', file);
-    }
-      form_data.append('nm',this.form.firstName);
-      form_data.append('desc',this.form.lastName);
-      form_data.append('type',this.form.gender);
-      form_data.append('am',this.form.age);
-
-      console.log("f1: "+form_data.get("file[]"));
-      console.log("form_data: "+JSON.stringify(this.files));
-       for (var pair of form_data.entries()){
-        console.log(pair[0]+', '+pair[1]);
-      }
-      
-      axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=a_up',
-          data: form_data,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-        console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
+      form_data.append('duration',this.heading4);
+      form_data.append('description',this.desc4);
+  
+console.log(JSON.stringify(form_data))
+      api.post('project',form_data).then((response) => {
+      console.log("response: "+ JSON.stringify(response));
        
-
-      })
-      .catch(function (response) {
-          //handle error
-          console.log("error"+response)
-      });
-        // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-          this.lastUser = `${this.form.firstName} ${this.form.lastName}`
-          this.userSaved = true
-          this.sending = false
-          this.clearForm()
-        }, 1500)
-      },
-      savePortfolio (){
-        this.sending = true
-        var murl=this.$store.state.mUrl;
-        var form_data = new FormData();
-
-      form_data.append('desc',this.desc1);
-      for( var i = 0; i < this.pImages.length; i++ ){
-          let file = this.pImages[i];
-          console.log(file);
-          form_data.append('files[' + i + ']', file);
-        }
-        // console.log("svp")
-       for (var pair of form_data.entries()) {
-          console.log(pair[0]+ ' - ' + pair[1]); 
-      }
-      // console.log(JSON.stringify(form_data))
-      axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=a_up2',
-          data: form_data,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-        console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
-       
-        window.setTimeout(() => {
-          if(response.data.code==1){ 
-            this.emsg1 = response.data.message;
+   window.setTimeout(() => {
+    this.emsg4 = response.data;
             //  this.clearForm1();
-            this.error1 = true
+            this.error4 = true
+          if(response.data.code==1){ 
+            this.emsg4 = response.data.message;
+            //  this.clearForm1();
+            this.error4 = true
            
           }
         }, 1500)
-      })
-      .catch(function (response) {
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+response.response.status)
       });
         // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
@@ -524,7 +467,52 @@ const axios = require('axios');
         }, 1500)
 
       },
-      saveService () {
+      saveService (){
+        this.sending = true
+        // var murl=this.$store.state.mUrl;
+        var form_data = new FormData();
+
+      form_data.append('name',this.heading1);
+      form_data.append('description',this.desc1);
+      // form_data.append('images[]',this.sImages);
+      for( var i = 0; i < this.pImages.length; i++ ){
+          let file = this.pImages[i];
+          console.log(file);
+          form_data.append('images[]', file);
+        }
+       for (var pair of form_data.entries()) {
+        console.log(pair[0]+ ' - ' + pair[1]); 
+      }
+// console.log(murl)
+console.log(JSON.stringify(form_data))
+      api.post('service',form_data).then((response) => {
+      console.log("response: "+ JSON.stringify(response));
+       
+   window.setTimeout(() => {
+    this.emsg1 = response.data;
+            //  this.clearForm1();
+            this.error1 = true
+          if(response.data.code==1){ 
+            this.emsg1 = response.data.message;
+            //  this.clearForm1();
+            this.error1 = true
+           
+          }
+        }, 1500)
+   
+}).catch(function (response) {
+          //handle error
+          console.log("error"+response.response.status)
+      });
+        // Instead of this timeout, here you can call your API
+        window.setTimeout(() => {
+         this.clearForm2();
+          this.sending = false
+          
+        }, 1500)
+
+      },
+      saveProduct () {
         this.sending = true
         var murl=this.$store.state.mUrl;
         var form_data = new FormData();
@@ -542,18 +530,13 @@ const axios = require('axios');
 }
 console.log(murl)
 console.log(JSON.stringify(form_data))
-      axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: 'http://localhost/w/vue/src/s/s2/public/api/product2',
-          data: form_data,
-          config: { headers: {'Content-Type': 'application/json' }}
-      })
-      .then((response) => {
-        console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
+api.post('product',form_data).then((response) => {
+   console.log("response: "+ JSON.stringify(response));
        
    window.setTimeout(() => {
+    this.emsg = response.data;
+            //  this.clearForm1();
+            this.error = true
           if(response.data.code==1){ 
             this.emsg = response.data.message;
             //  this.clearForm1();
@@ -561,11 +544,12 @@ console.log(JSON.stringify(form_data))
            
           }
         }, 1500)
-      })
-      .catch(function (response) {
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+response.response.status)
       });
+
         // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
         //  this.clearForm1();
@@ -576,7 +560,7 @@ console.log(JSON.stringify(form_data))
       },
 saveGallery(){
         this.sending = true
-        var murl=this.$store.state.nUrl;
+        // var murl=this.$store.state.nUrl;
         var form_data = new FormData();
 
       form_data.append('heading',"Gallery");
@@ -584,23 +568,19 @@ saveGallery(){
       for( var i = 0; i < this.gImages.length; i++ ){
           let file = this.gImages[i];
           console.log(file);
-          form_data.append('files[' + i + ']', file);
+          form_data.append('images[]', file);
         }
        for (var pair of form_data.entries()) {
     console.log(pair[0]+ ' - ' + pair[1]); 
 }
-      axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=a_up3',
-          data: form_data,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-        console.log("response: "+response);
-        console.log("response3: "+ JSON.stringify(response.data));
+
+api.post('company',form_data).then((response) => {
+   console.log("company_response: "+ JSON.stringify(response));
        
    window.setTimeout(() => {
+    this.emsg = response.data;
+            //  this.clearForm1();
+            this.error = true
           if(response.data.code==1){ 
             this.emsg = response.data.message;
             //  this.clearForm1();
@@ -608,12 +588,13 @@ saveGallery(){
            
           }
         }, 1500)
-      })
-      .catch(function (response) {
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+JSON.stringify(response))
       });
-        // Instead of this timeout, here you can call your API
+
+  //       // Instead of this timeout, here you can call your API
         window.setTimeout(() => {
          this.clearForm1();
           this.sending = false
@@ -622,30 +603,34 @@ saveGallery(){
 
       },
 
-      validateUser1 () {
-       
-        this.$v.$touch()
-
-          //  alert(this.files)
-       
-        if (!this.$v.$invalid) {
-              if(this.files==undefined){
-             alert("Please add atleast one image")
-           }else{
-             this.saveUser()
-           }
-          // 
-            // alert("No error")
-        }else{
-          alert("There is an error")
-          // alert(JSON.stringify(this.$v))
-          // console.log(JSON.stringify(this.$v))
-        }
-      },
-          validatePortfolio () {
+          validateProject () {
             // this.$v.$touch()
             // alert(this.desc1)
-     if(this.desc1==null){
+        if(this.heading4==null){
+           alert("There is an error")
+          this.error4 = true;
+          this.emsg4 = "Please add a heading";
+        }else if(this.desc4==null){
+          this.error4 = true;
+          alert("There is an error")
+          this.emsg4 = "Please add a description";
+        }else if(this.pImages==null){
+          this.error4 = true;
+          alert("There is an error")
+          this.emsg4 = "Please add an Image";
+        }else{
+          this.saveProject();
+        }
+   
+      },
+          validateService () {
+            // this.$v.$touch()
+            // alert(this.desc1)
+        if(this.heading1==null){
+           alert("There is an error")
+          this.error1 = true;
+          this.emsg1 = "Please add a heading";
+        }else if(this.desc1==null){
           this.error1 = true;
           alert("There is an error")
           this.emsg1 = "Please add a description";
@@ -654,11 +639,11 @@ saveGallery(){
           alert("There is an error")
           this.emsg1 = "Please add an Image";
         }else{
-          this.savePortfolio();
+          this.saveService();
         }
    
       },
-      validateForm () {
+      validateProduct () {
         // this.$v.$touch()
         // alert("gg")
         if(this.heading==null){
@@ -666,17 +651,15 @@ saveGallery(){
           this.emsg = "Please add a heading";
         }else if(this.desc==null){
           this.error = true;
-          this.emsg = "Please add a description of the service";
+          this.emsg = "Please add a description of the product";
         }else if(this.sImages==null){
           this.error = true;
-          this.emsg = "Please add an Image of the service";
+          this.emsg = "Please add an Image of the product";
         }else{
-          this.saveService();
+          this.saveProduct();
         }
       console.log("heading= "+this.heading)
-        // if (!this.$v.$invalid) {
-        //   this.saveService()
-        // }
+       
       },
 
       validateGallery () {

@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ProjectController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,10 +31,32 @@ Route::group(['middleware' => ['jwt.verify'],
 'prefix' => 'auth'], function() {
     Route::get('/user-profile2', [AuthController::class, 'userProfile']);
     
-    Route::post('/product', [ProductController::class, 'addProduct']); 
+    Route::post('/product', [ProductController::class, 'addProduct2']); 
+    Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+
+    Route::post('/company', [CompanyController::class, 'addCompany']); 
+    Route::delete('/company/{id}', [CompanyController::class, 'destroy']);
+
+    Route::post('/service', [ServiceController::class, 'addService']);
+    Route::delete('/service/{id}', [ServiceController::class, 'destroy']);
+
+    Route::post('/project', [ProjectController::class, 'addProject']);
+    Route::delete('/project/{id}', [ProjectController::class, 'destroy']);
+    
+    
+Route::get('/company', [CompanyController::class, 'index']);
+Route::get('/service', [ServiceController::class, 'index']); 
+Route::get('/product', [ProductController::class, 'index']); 
+Route::get('/project', [ProjectController::class, 'index']);
+
 });
-Route::post('/product1', [ProductController::class, 'addProduct']); 
-Route::post('/product2', [ProductController::class, 'addProduct2']); 
+
+Route::get('/company', [CompanyController::class, 'index']);
+Route::get('/service', [ServiceController::class, 'index']); 
+Route::get('/product', [ProductController::class, 'index']);
+
+// Route::post('/product1', [ProductController::class, 'addProduct']); 
+// Route::post('/product2', [ProductController::class, 'addProduct2']); 
 // Route::get('/', function () {
 //     return view('welcome');
 // });

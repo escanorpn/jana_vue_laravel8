@@ -11,7 +11,7 @@
 
 <script>
 import mlist from "./slist.vue"
-import axios from "axios"
+  import api from "../../services/api";
 // import { mdbContainer, mdbCol, mdbRow,  mdbEdgeHeader,  mdbCardBody } from 'mdbvue';
 // import data from "./posts.json"
 
@@ -39,37 +39,21 @@ export default {
    
     async fetchNews() {
 this.products=[];
-        var murl=this.$store.state.mUrl;
-       const mData = { 
-    nm:"peter" ,
-    // pass:this.pass
- };
     
-axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=a_gallery',
-          data: mData,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-         const results = response.data
-         const myData = response.data.data
-        // console.log("response: "+JSON.stringify(response));
-        console.log("response1: "+ JSON.stringify(myData));
-        
-      
-        if(results.val==2){
+ api.get('company').then((response) => {
+      // console.log("response: "+ JSON.stringify(response));
+      const myData = response.data
+    if(myData.val==2){
           console.log(myData)
-            this.products = myData
+            this.products = myData.data
         }
-       
-
-      })
-      .catch(function (response) {
+        console.log("products"+JSON.stringify(myData))
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+response.response.status)
       });
+      
 
     
     },

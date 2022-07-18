@@ -31,11 +31,11 @@
           <span class="nav-text">Services</span>
         </a-menu-item>
         <a-menu-item key="1" @click="mChange3">
-          <span class="nav-text">Portfolio</span>
+          <span class="nav-text">Products</span>
         </a-menu-item>
         
         <a-menu-item key="4" @click="mChange4">
-          <span class="nav-text">Gallery</span>
+          <span class="nav-text">Companies</span>
         </a-menu-item>
       </a-menu>
     </a-layout-sider>

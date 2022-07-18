@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
+
 trait HasRelationships
 {
     /**
