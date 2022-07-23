@@ -29,7 +29,6 @@
 		</mdb-view>
 
 		<mdb-card-body class="text-center pb-0" cascade>
-      <mdb-card-title><strong></strong></mdb-card-title>
       <h5>{{post.name }}</h5>
       <mdb-card-text>{{post.description}}</mdb-card-text>
 

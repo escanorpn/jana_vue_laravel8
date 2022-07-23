@@ -1,6 +1,7 @@
 <template>
 <div class=" bgz">
   
+ <md-progress-bar md-mode="indeterminate" v-if="sending" />
     <div class="page-header" style="backgroundColor:#0f0404cc;padding-bottom: 50px;" >
   <!-- Card -->
   <mdb-card class="mTop1">
@@ -18,6 +19,7 @@
            <mdb-btn style="color:#e9ecef;background: linear-gradient(315deg,#3f0d12,#a71d31 74%);box-shadow: rgb(38 3 3) 1px 5px 5px;" color="" type="submit" :disabled="sending">Login</mdb-btn>
           <!-- <mdb-btn style="color:#e9ecef;background-color:#0c0f24;" color="" type="submit">Login</mdb-btn> -->
         </div>
+        
       </form>
 
     <imd src="../../s/s1/api.php"/>
@@ -46,7 +48,7 @@
 
 </template>
 <script>
-  import { mdbInput, mdbBtn, mdbCard, mdbCardBody } from 'mdbvue';
+  import { mdbInput, mdbBtn, mdbCard, mdbCardBody, } from 'mdbvue';
   import api from "../services/api";
   // const axios = require('axios');
   // import * as cr from 'vue-nacl-crypter' 
@@ -62,17 +64,17 @@
       mdbInput,
       mdbBtn,
       mdbCard,
-      mdbCardBody
+      mdbCardBody,
+      // mdSnackbar
     },
     
-  data() {
-    return {
+ data: () => ({
       hasErrors,
       form: this.$form.createForm(this, { name: 'horizontal_login' }),
       pass:"empty",
-      email:"empty"
-    };
-  },
+      email:"empty",
+      sending:false,
+    }),
   mounted() {
        
     this.$nextTick(() => {
@@ -92,11 +94,13 @@
       return isFieldTouched('password') && getFieldError('password');
     },
     handleSubmit(e) {
+      
       e.preventDefault();
       const form_data = new FormData();
        form_data.append('email',this.email);
        form_data.append('pass',this.pass);
       console.log(this.pass);
+      this.sending=true
 //  const data = { 
 //     email:this.email ,
 //     password:this.pass
@@ -116,16 +120,18 @@ api.post('login',data).then((response) => {
      localStorage.setItem('access_token', access_token)
     console.log("response1: "+ JSON.stringify(access_token));
     console.log("response2: "+ this.$store.state.access_token);
-    
+    this.sending=false;
 
     this.$router.push('/Products');
     window.location.reload();
    }
 }).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          alert("error: "+response)
+          // console.log("error: "+response)
       });
 
+      this.sending=false;
       //   axios({
       //     method: 'POST',
       //     url: murl+'login?api_token=',

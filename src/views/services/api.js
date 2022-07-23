@@ -49,10 +49,13 @@ const responseHandler = response => {
 };
 
 const errorHandler = error => {
-    // alert(error)
-    if(error.response.status==401){
-        router.push('/Admin');
-            // alert(error)
+    if(error.response!=undefined){
+      
+        if(error.response.status==401){
+            router.push('/Admin');
+                // alert(error)
+        }
+            
     }
     return Promise.reject(error);
     

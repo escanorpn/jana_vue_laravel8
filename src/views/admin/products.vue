@@ -37,6 +37,9 @@
         <a-menu-item key="4" @click="mChange4">
           <span class="nav-text">Companies</span>
         </a-menu-item>
+        <a-menu-item key="5" @click="mChange5">
+          <span class="nav-text">Projects</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     </a-affix>
@@ -50,6 +53,7 @@
            <mServices v-if="mProduct === 2" />
            <mFolio v-if="mProduct === 3" />
            <mGallery v-if="mProduct === 4" />
+           <mProject v-if="mProduct === 5" />
         </div>
       </a-layout-content>
       <!-- <a-layout-footer style="textAlign: center">
@@ -73,6 +77,7 @@ import mUpload from "./upload.vue"
 import mServices from "./services.vue"
 import mFolio from "./portfolio.vue"
 import mGallery from "./gallery/gallery.vue"
+import mProject from "./project/project.vue"
   // import {  mdbCard, mdbCardBody,  } from 'mdbvue';
   
 //  import UploadImages from "vue-upload-drop-images"
@@ -93,6 +98,7 @@ const axios = require('axios');
         mServices,
         mFolio,
         mGallery,
+        mProject,
         // UploadImages,
         // mdbCard,
         // mdbCardBody,
@@ -154,6 +160,9 @@ const axios = require('axios');
       },
       mChange4(){
         this.mProduct=4;
+      },
+      mChange5(){
+        this.mProduct=5;
       },
         onCollapse(collapsed, type) {
       console.log(collapsed, type);

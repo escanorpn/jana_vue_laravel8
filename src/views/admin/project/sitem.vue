@@ -1,40 +1,44 @@
 <template>
-<div  class="mb-5 col-md-4"  style=" margin:0">
+<div data-v-5e2edc68="" data-v-40b8d964="" class="mb-5 col-md-6" data-v-320224c2="" v-if="post.description">
 
-     <mdb-card v-animateOnScroll="{animation: 'fadeInLeft', delay: 30}" wide style="width: 100%;" >
+
+     <mdb-card v-animateOnScroll="{animation: 'fadeInLeft', delay: 30}" wide>
       
-      <mdb-view hover cascade class="ms">
-            
-   
-     
-              <img  :src="murl+sm1.url" alt="Card image cap" class="ms1"/>
-                <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
-           
-      </mdb-view>
+  
 
 		<mdb-card-body class="text-center pb-0" cascade>
-      <!-- <h5>{{post.name }}</h5>
-      <mdb-card-text>{{post.description}}</mdb-card-text> -->
+      <mdb-card-text>{{post.description}}</mdb-card-text>
+      <hr/>
+      <h5>{{post.name }}</h5>
 
 					
 		</mdb-card-body>
 
+       <div class="float-center" style="margin-left: auto;margin-right: auto;" @click="reload"><mdb-btn  color="danger" rounded>Delete</mdb-btn></div>
 
-   
+       
+      <!-- <div class="float-center" style="margin-left: auto;margin-right: auto;" >
+         <router-link to="/motocycles" >
+          <mdb-btn  color="primary" rounded>Contact for more info</mdb-btn>
+        </router-link>
+      </div> -->
   
 	</mdb-card>
-  </div>
+  
+        </div>
 </template>
 
 <script>
-import {   mdbCard, mdbCardBody,animateOnScroll, } from 'mdbvue';
+import {   mdbCard, mdbCardBody,animateOnScroll, mdbBtn} from 'mdbvue';
       
+import api from "../../services/api";
 // import { slider, slideritem } from 'vue-concise-slider'
- const axios = require('axios');
+//  const axios = require('axios');
 export default {
    name: 'HomePage',
   components: {
 
+  mdbBtn,
   mdbCard,
   mdbCardBody,
 
@@ -56,28 +60,9 @@ export default {
     isBold: false,
     
     id:0,
-     murl:this.$store.state.mUrl,
+     murl:this.$store.state.iUrl,
      sm1:[],
-    someList:[
-          {
-            html: "https://mdbootstrap.com/img/Photos/Others/photo6.jpg",
-            style: {
-              'background': '#1bbc9b'
-            }
-          },
-          {
-            html: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20%286%29.jpg',
-            style: {
-              'background': '#4bbfc3'
-            }
-          },
-          {
-            html: '../../files',
-            style: {
-              'background': '#7baabe'
-            }
-          }
-        ],
+     
         //Slider configuration [obj]
         options: {
           currentPage: 0,
@@ -109,46 +94,61 @@ var formatter = new Intl.NumberFormat('en-US', {
 console.log(formatter.format(2500))
 this.post.price= formatter.format(2500);
 },
- reload(mid){
+ reload(){
    this.$parent.loading();
    
-   this.id=mid;
+   this.id=this.post.id;
  
-    const article = { 
-    id:this.id,
-  };
+  //   const article = { 
+  //   id:this.id,
+  // };
       console.log("item_reload"+this.id);
-var murl=this.$store.state.mUrl;
-   axios({
-          method: 'POST',
-          // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
-          url: murl+'api.php?apicall=del_m3',
-          data: article,
-          config: { headers: {'Content-Type': 'multipart/form-data' }}
-      })
-      .then((response) => {
-        // console.log("response: "+response);
-        console.log("response1: "+ JSON.stringify(response.data));
-        // console.log("response2: "+response.data);
-          if(response.data.val==22 & !response.data.error){
+
+api.delete('project/'+this.id).then((response) => {
+      console.log("response: "+ JSON.stringify(response));
+      const myData = response.data
+        
+ if(response.data.val==2 ){
             this.$parent.reload();
               console.log("item_deleted"+this.id);
           }
         this.$parent.done();
-      })
-      .catch(function (response) {
+        console.log("products"+JSON.stringify(myData))
+   
+}).catch(function (response) {
           //handle error
-          console.log("error"+response)
+          console.log("error"+response.response.status)
       });
+  //  axios({
+  //         method: 'POST',
+  //         // url: 'http://localhost/nw/vap/regApi.php?apicall=signup'
+  //         url: murl+'api.php?apicall=del_m1',
+  //         data: article,
+  //         config: { headers: {'Content-Type': 'multipart/form-data' }}
+  //     })
+  //     .then((response) => {
+  //       // console.log("response: "+response);
+  //       console.log("response1: "+ JSON.stringify(response.data));
+  //       // console.log("response2: "+response.data);
+  //         if(response.data.val==22 & !response.data.error){
+  //           this.$parent.reload();
+  //             console.log("item_deleted"+this.id);
+  //         }
+  //       this.$parent.done();
+  //     })
+  //     .catch(function (response) {
+  //         //handle error
+  //         console.log("error"+response)
+  //     });
        
 
     }
   },
   mounted() {
     // this.fetchNews()
-    this.currency();
-    this.sm1=this.post;
-    console.log("im: "+JSON.stringify(this.post))
+    // this.currency();
+    this.sm1=this.post.img;
+    console.log("post: "+JSON.stringify(this.post))
   },
 }
 </script>
@@ -166,7 +166,7 @@ var murl=this.$store.state.mUrl;
     width: 100%; */
     max-width: 100%;
     /* height: 2222px; */
-    /* max-height: 234px; */
+    max-height: 234px;
     margin-left: auto;
     margin-right: auto;
 }
