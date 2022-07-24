@@ -3,7 +3,7 @@
 <div >
 
     <Main  />
-    <Services  />
+    <!-- <Services  /> -->
     
   </div>
   
@@ -11,7 +11,7 @@
 
 <script>
 import Main from "./home/mainContent.vue"
-import Services from "./home/services.vue"
+// import Services from "./home/services.vue"
 export default {
   props: {
     posts: {
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     Main,
-    Services,
+    // Services,
   },
 }
 </script>

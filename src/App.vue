@@ -1,30 +1,13 @@
 <template>
 <div>
    <!-- background: linear-gradient(rgb(0, 0, 0), rgb(0 0 0 / 88%), rgb(0 0 0 / 30%) 100%) -->
-  <mdb-navbar  v-bind:class = "isMobile()?'mNavc':'dNavc'"   color="info" position="top" dark transparent scrolling style=" background: linear-gradient(#000000, #0000000d, rgba(0, 0, 0, 0.11) 100%);">
+  <mdb-navbar  v-bind:class = "isMobile()?'mNavc':'dNavc'"   color="info" position="top" dark transparent scrolling style=" width:20px">
     <mdb-navbar-brand to="/" >
-           <img src="./assets/img/flogo.jpeg" alt=" LMG" style="max-width:43px;background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgb(0 0 0 / 0%) 100%);border-radius: 5px;" ><span style="color: white;font-weight: 500;text-shadow: rgb(203 109 255) 1px 1px 2px;">
-    LMG </span>
+           <!-- <img src="./assets/img/flogo.jpeg" alt=" Cloudia" style="max-width:43px;background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgb(0 0 0 / 0%) 100%);border-radius: 5px;" > -->
+           <span style="color: white;font-weight: 500;text-shadow: rgb(203 109 255) 1px 1px 2px;">
+    Jana Engineering </span>
     </mdb-navbar-brand>
 
-    <mdb-navbar-toggler>
-      <mdb-navbar-nav style="background: #0700007a;">  
-        <mdb-nav-item  class="nav_text"  to="/" active>Home</mdb-nav-item>
-        <mdb-nav-item  class="nav_text"  to="/folio">Portfolio</mdb-nav-item>
-        <mdb-nav-item  class="nav_text"  to="/gallery">Gallery</mdb-nav-item>
-        <mdb-nav-item class="nav_text"   to="/services">Services</mdb-nav-item>
-        <mdb-nav-item class="nav_text"  to="/about">About</mdb-nav-item>
-        <mdb-nav-item  class="nav_text"  to="/contact">Contact us</mdb-nav-item>
-        <mdb-nav-item  class="nav_text"   to="/admin">Admin</mdb-nav-item>
-        
-      </mdb-navbar-nav>
-      <mdb-navbar-nav right>  
-       
-         <!-- <mdb-nav-item  to="/cart" style="float:right;">{{cItems}} <mdb-icon  to="/cart" fab icon="opencart" style="color:white" /></mdb-nav-item> -->
-      </mdb-navbar-nav>
-    
-       
-    </mdb-navbar-toggler>
   </mdb-navbar>
    <main :style="{ marginTop: $store.state.docs ? '0px' : '0px' }">
       <transition name="fade" mode="out-in">
@@ -34,17 +17,23 @@
         
     <div v-if="$store.state.docs" color="stylish-color">
       <p class="footer-copyright mb-0 py-3 text-center">
-        &copy; {{ new Date().getFullYear() }} Copyright:
+        &copy; {{ new Date().getFullYear() }} 
+        Copyright:
         <a
           href="/"
-          >LMG</a
+          >Jana</a
         >
       </p>
     </div>
     </div>
 </template>
 <script>
-  import { mdbNavbar, mdbNavbarBrand, mdbNavbarToggler, mdbNavbarNav, mdbNavItem, } from 'mdbvue';
+  import { mdbNavbar, mdbNavbarBrand,  
+  // mdbNavbarNav,
+  // mdbNavbarToggler,
+  //  mdbNavItem,
+  //     mdbIcon 
+      } from 'mdbvue';
   
 import { isMobile } from 'mobile-device-detect';
   // alert(this.mib);
@@ -62,9 +51,9 @@ import { isMobile } from 'mobile-device-detect';
     components: {
       mdbNavbar,
       mdbNavbarBrand,
-      mdbNavbarToggler,
-      mdbNavbarNav,
-      mdbNavItem,
+      // mdbNavbarNav,
+      // mdbNavbarToggler,
+      // mdbNavItem,
       // mdbIcon
       
       
@@ -106,14 +95,17 @@ import { isMobile } from 'mobile-device-detect';
         background-color: #ffffff;
     }
     .mNavc{
-      /* background-color: #000 !important; */
-      background: linear-gradient(177deg, rgb(0, 1, 2), #02092300);
+      background-color: #000 !important;
+      /* background: linear-gradient(177deg, rgb(0, 1, 2), #02092300); */
     }
     .dNavc{
       background-color: transparent;
     }
     .info-color {
-            background: linear-gradient(175deg, rgb(88 0 9) 0%, #45100f 74%)!important;;
-        background-color:red !important;
+            
+        background-color:rgba(0, 0, 0, 0.231) !important;
+}
+.navbar-toggler{
+  display: none !important;
 }
 </style>

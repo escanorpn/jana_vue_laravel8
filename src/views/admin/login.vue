@@ -1,14 +1,14 @@
 <template>
 <div class=" bgz">
-  
- <md-progress-bar md-mode="indeterminate" v-if="sending" />
+   <md-progress-bar md-mode="indeterminate" v-if="sending" />
     <div class="page-header" style="backgroundColor:#0f0404cc;padding-bottom: 50px;" >
+   
   <!-- Card -->
   <mdb-card class="mTop1">
     <mdb-card-body>
      
       <form @submit="handleSubmit">
-        <p class="h4 text-center py-4">Sign up</p>
+        <p class="h4 text-center py-4">Log in</p>
         <div class="grey-text">
         
           <mdb-input label="Your email" icon="envelope" group type="email" validate error="wrong" success="right" @input="hEmail"/>
@@ -73,7 +73,7 @@
       form: this.$form.createForm(this, { name: 'horizontal_login' }),
       pass:"empty",
       email:"empty",
-      sending:false,
+      sending:true,
     }),
   mounted() {
        
@@ -93,14 +93,18 @@
       const { getFieldError, isFieldTouched } = this.form;
       return isFieldTouched('password') && getFieldError('password');
     },
+    loading(){
+// alert("foo")
+ this.sending=true;
+    },
     handleSubmit(e) {
-      
+      this.loading();
       e.preventDefault();
       const form_data = new FormData();
        form_data.append('email',this.email);
        form_data.append('pass',this.pass);
       console.log(this.pass);
-      this.sending=true
+      this.sending=true;
 //  const data = { 
 //     email:this.email ,
 //     password:this.pass
@@ -182,6 +186,14 @@ api.post('login',data).then((response) => {
 
 
 <style>
+  .md-progress-bar {
+    position: fixed;
+    height:7px;
+    top: 48px;
+    right: 0;
+    left: 0;
+    z-index: 4;
+  }
 
 .cyan {
   margin-left: 50%;

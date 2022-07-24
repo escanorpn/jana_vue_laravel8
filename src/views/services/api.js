@@ -39,6 +39,7 @@ const requestHandler = request => {
 };
 
 const responseHandler = response => {
+    console.log(JSON.stringify(response))
     if (response.status === 401) {
         router.push('/Admin');
     }else if (response.data.code === 401) {
