@@ -614,11 +614,12 @@ api.post('company',form_data).then((response) => {
           this.error4 = true;
           alert("There is an error")
           this.emsg4 = "Please add a description";
-        }else if(this.pImages==null){
-          this.error4 = true;
-          alert("There is an error")
-          this.emsg4 = "Please add an Image";
-        }else{
+        // }else if(this.pImages==null){
+        //   this.error4 = true;
+        //   alert("There is an error")
+        //   this.emsg4 = "Please add an Image";
+        }
+        else{
           this.saveProject();
         }
    

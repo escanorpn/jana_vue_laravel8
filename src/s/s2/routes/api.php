@@ -54,6 +54,7 @@ Route::get('/project', [ProjectController::class, 'index']);
 Route::get('/company', [CompanyController::class, 'index']);
 Route::get('/service', [ServiceController::class, 'index']); 
 Route::get('/product', [ProductController::class, 'index']);
+Route::get('/project', [ProjectController::class, 'index']);
 
 // Route::post('/product1', [ProductController::class, 'addProduct']); 
 // Route::post('/product2', [ProductController::class, 'addProduct2']); 

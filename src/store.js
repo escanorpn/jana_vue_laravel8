@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 
 const base="https://sjana.losenviskas.com/";
+// const base="http://localhost/w/vue/";
+
 export default new Vuex.Store({
   state: {
     docs: true,
@@ -18,6 +20,7 @@ export default new Vuex.Store({
     // mUrl: "http://localhost/w/15/vue_mdb_ant/src/s/s1/",
     // mUrl: "http://localhost/w/lmg2/src/s/s1/",
     // http://localhost/w/vue/src/s/s2/public/api/product1
+
     // mUrl: " http://localhost/w/vue/src/s/s2/public/api/auth/",
     // iUrl: " http://localhost/w/vue/src/s/s2/storage/app/",
     // nUrl: " http://localhost/w/vue/src/s/s2/public/api/",
@@ -25,6 +28,7 @@ export default new Vuex.Store({
     mUrl: base+"src/s/s2/public/api/auth/",
     iUrl: base+"src/s/s2/storage/app/",
     nUrl: base+"src/s/s2/public/api/",
+
     // mUrl: "https://lmg.lmglobalexhibitions.com/src/s/s1/",
     // mUrl: "http://192.168.43.73/w/15/vue_mdb_ant/src/s/s1/",
     // mUrl: "http://s15minutes.kilaqitu.com/s1/",
