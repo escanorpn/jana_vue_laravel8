@@ -512,7 +512,7 @@ console.log(JSON.stringify(form_data))
         }, 1500)
 
       },
-      saveProduct () {
+     async saveProduct () {
         this.sending = true
         var murl=this.$store.state.mUrl;
         var form_data = new FormData();
@@ -530,7 +530,7 @@ console.log(JSON.stringify(form_data))
 }
 console.log(murl)
 console.log(JSON.stringify(form_data))
-api.post('product',form_data).then((response) => {
+await api.post('product',form_data).then((response) => {
    console.log("response: "+ JSON.stringify(response));
        
    window.setTimeout(() => {
