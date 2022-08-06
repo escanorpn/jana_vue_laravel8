@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div style="margin-top: -15px; overflow-x: ;">
-
+ <md-progress-bar md-mode="indeterminate" v-if="sending" />
   
      </div>
     <mlist :posts="products" />
@@ -32,12 +32,16 @@ export default {
   data() {
     return {
       products: [],
+      sending:false,
     }
   },
   methods: {
     // Helper function for extracting a nested image object
    
     async fetchNews() {
+      const context=this;
+      context.sending=true;
+      
 this.products=[];
     
  api.get('company').then((response) => {
@@ -48,8 +52,10 @@ this.products=[];
             this.products = myData.data
         }
         console.log("products"+JSON.stringify(myData))
+         context.sending=false;
    
 }).catch(function (response) {
+   context.sending=false;
           //handle error
           console.log("error"+response.response.status)
       });

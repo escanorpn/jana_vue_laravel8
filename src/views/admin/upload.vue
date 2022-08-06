@@ -341,7 +341,7 @@
       }
     },
      mounted() {
-  
+  this.sending=this.$store.state.loading;
       if(!this.$cookies.isKey("admin")){
     
         // this.$router.push('/Admin');
@@ -432,6 +432,7 @@
       },
 
       saveProject (){
+        const context=this;
         this.sending = true
         // var murl=this.$store.state.mUrl;
         var form_data = new FormData();
@@ -443,7 +444,6 @@ console.log(JSON.stringify(form_data))
       api.post('project',form_data).then((response) => {
       console.log("response: "+ JSON.stringify(response));
        
-   window.setTimeout(() => {
     this.emsg4 = response.data;
             //  this.clearForm1();
             this.error4 = true
@@ -453,21 +453,19 @@ console.log(JSON.stringify(form_data))
             this.error4 = true
            
           }
-        }, 1500)
+          this.sending = false
    
 }).catch(function (response) {
           //handle error
-          console.log("error"+response.response.status)
+          console.log("error"+response)
+          //  this.clearForm2();
+          context.sending = false
       });
-        // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-         this.clearForm2();
-          this.sending = false
-          
-        }, 1500)
+       
 
       },
       saveService (){
+         const context=this;
         this.sending = true
         // var murl=this.$store.state.mUrl;
         var form_data = new FormData();
@@ -487,9 +485,8 @@ console.log(JSON.stringify(form_data))
 console.log(JSON.stringify(form_data))
       api.post('service',form_data).then((response) => {
       console.log("response: "+ JSON.stringify(response));
-       
-   window.setTimeout(() => {
-    this.emsg1 = response.data;
+
+        this.emsg1 = response.data;
             //  this.clearForm1();
             this.error1 = true
           if(response.data.code==1){ 
@@ -498,21 +495,19 @@ console.log(JSON.stringify(form_data))
             this.error1 = true
            
           }
-        }, 1500)
-   
+          this.clearForm2();
+          this.sending = false
 }).catch(function (response) {
           //handle error
-          console.log("error"+response.response.status)
+          console.log("error"+response)
+            //  this.clearForm2();
+          context.sending = false
       });
-        // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-         this.clearForm2();
-          this.sending = false
-          
-        }, 1500)
+    
 
       },
      async saveProduct () {
+       const context=this;
         this.sending = true
         var murl=this.$store.state.mUrl;
         var form_data = new FormData();
@@ -533,7 +528,6 @@ console.log(JSON.stringify(form_data))
 await api.post('product',form_data).then((response) => {
    console.log("response: "+ JSON.stringify(response));
        
-   window.setTimeout(() => {
     this.emsg = response.data;
             //  this.clearForm1();
             this.error = true
@@ -543,23 +537,24 @@ await api.post('product',form_data).then((response) => {
             this.error = true
            
           }
-        }, 1500)
+
+         this.clearForm1();
+          this.sending = false
    
 }).catch(function (response) {
           //handle error
-          console.log("error"+response.response.status)
+          console.log("error"+response)
+            context.sending = false
       });
 
         // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-        //  this.clearForm1();
-          this.sending = false
-          
-        }, 1500)
+   
 
       },
 saveGallery(){
+  const context=this;
         this.sending = true
+        // this.sending=this.$store.state.loading;
         // var murl=this.$store.state.nUrl;
         var form_data = new FormData();
 
@@ -575,10 +570,10 @@ saveGallery(){
 }
 
 api.post('company',form_data).then((response) => {
+  
    console.log("company_response: "+ JSON.stringify(response));
        
-   window.setTimeout(() => {
-    this.emsg = response.data;
+     this.emsg = response.data;
             //  this.clearForm1();
             this.error = true
           if(response.data.code==1){ 
@@ -587,20 +582,21 @@ api.post('company',form_data).then((response) => {
             this.error = true
            
           }
-        }, 1500)
+         this.clearForm1();
+          this.sending = false
    
 }).catch(function (response) {
           //handle error
-          console.log("error"+JSON.stringify(response))
+          console.log("err: "+JSON.stringify(response))
+          //  this.clearForm1();
+          // context.sending = false;
+          // alert(context.$store.state.loading)
+          
+        context.sending=context.$store.state.loading;
       });
 
   //       // Instead of this timeout, here you can call your API
-        window.setTimeout(() => {
-         this.clearForm1();
-          this.sending = false
-          
-        }, 1500)
-
+     
       },
 
           validateProject () {

@@ -25,7 +25,7 @@ import axios from 'axios';
 // that then the request will be aborted.
 const customAxios = axios.create({
     baseURL: murl,
-    timeout: 10000, 
+    timeout: 20000, 
     // headers: { 'api-key': 'eyJz-CI6Ikp-4pWY-lhdCI6' }
 });
 
@@ -35,10 +35,12 @@ const requestHandler = request => {
     // fetch the new token before making the call
     request.headers.Authorization = 'Bearer '+access_token;  
   console.log(JSON.stringify(request))
+//   store.commit('setLoading',true)
     return request;
 };
 
 const responseHandler = response => {
+    store.commit('setLoading',false)
     console.log(JSON.stringify(response))
     if (response.status === 401) {
         router.push('/Admin');
@@ -50,6 +52,12 @@ const responseHandler = response => {
 };
 
 const errorHandler = error => {
+    
+    store.commit('setLoading',false)
+    if(error.message){
+        alert("error: "+error.message)
+        console.log("err: "+JSON.stringify(error.message))
+    }
     if(error.response!=undefined){
       
         if(error.response.status==401){

@@ -29,6 +29,8 @@ export default new Vuex.Store({
     iUrl: base+"src/s/s2/storage/app/",
     nUrl: base+"src/s/s2/public/api/",
 
+    loading:false,
+
     // mUrl: "https://lmg.lmglobalexhibitions.com/src/s/s1/",
     // mUrl: "http://192.168.43.73/w/15/vue_mdb_ant/src/s/s1/",
     // mUrl: "http://s15minutes.kilaqitu.com/s1/",
@@ -41,6 +43,9 @@ export default new Vuex.Store({
         },
         setApikey(state,value){
             state.access_token=value
+        },
+        setLoading(state,value){
+            state.loading=value
         }
     },
     actions: {
