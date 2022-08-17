@@ -116,7 +116,7 @@
 //  };
  const data ={
   "email": "vector.n@gmail.com",
-  "password": "password"
+  "password": "passpass"
  }
       // console.log(article)
 // var murl=this.$store.state.mUrl;
